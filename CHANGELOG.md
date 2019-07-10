@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/innovationnorway/terraform-azurerm-key-vault/compare/v1.2.0...v1.2.1) (2019-07-10)
+
+
+### Bug Fixes
+
+* **outputs:** changed `uri` to return `vault_uri` instead of `id` ([#8](https://github.com/innovationnorway/terraform-azurerm-key-vault/issues/8)) ([0e8e0d4](https://github.com/innovationnorway/terraform-azurerm-key-vault/commit/0e8e0d4))
+
 # [1.2.0](https://github.com/innovationnorway/terraform-azurerm-key-vault/compare/v1.1.2...v1.2.0) (2019-07-03)
 
 
