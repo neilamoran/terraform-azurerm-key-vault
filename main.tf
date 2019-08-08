@@ -94,9 +94,7 @@ resource "azurerm_key_vault" "main" {
   enabled_for_disk_encryption     = var.enabled_for_disk_encryption
   enabled_for_template_deployment = var.enabled_for_template_deployment
 
-  sku {
-    name = var.sku
-  }
+  sku_name = var.sku
 
   tags = var.tags
 }
