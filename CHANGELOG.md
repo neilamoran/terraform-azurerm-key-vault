@@ -1,3 +1,24 @@
+# [2.0.0](https://github.com/innovationnorway/terraform-azurerm-key-vault/compare/v1.2.1...v2.0.0) (2019-08-08)
+
+
+### Bug Fixes
+
+* `sku` has been deprecated in favour of the `sku_name` ([60fab7f](https://github.com/innovationnorway/terraform-azurerm-key-vault/commit/60fab7f))
+* set provider version constraints ([3ec3cc1](https://github.com/innovationnorway/terraform-azurerm-key-vault/commit/3ec3cc1))
+* setting access policies now works as expected ([9ebf424](https://github.com/innovationnorway/terraform-azurerm-key-vault/commit/9ebf424))
+
+
+### Features
+
+* `secrets` is now a `map` of strings instead of `list` of objects. ([f956f55](https://github.com/innovationnorway/terraform-azurerm-key-vault/commit/f956f55))
+* output the `name` property ([414af3a](https://github.com/innovationnorway/terraform-azurerm-key-vault/commit/414af3a))
+* use `for_each` to iterate over `secrets` ([e044427](https://github.com/innovationnorway/terraform-azurerm-key-vault/commit/e044427))
+
+
+### BREAKING CHANGES
+
+* `secrets` argument is now type `map` instead of `list` of objects, where the key is the name of the secret.
+
 ## [1.2.1](https://github.com/innovationnorway/terraform-azurerm-key-vault/compare/v1.2.0...v1.2.1) (2019-07-10)
 
 
