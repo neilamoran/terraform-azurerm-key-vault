@@ -13,7 +13,7 @@ resource "azurerm_resource_group" "main" {
 module "key_vault" {
   source = "innovationnorway/key-vault/azurerm"
 
-  name = "example-vault"
+  name = "example"
 
   resource_group_name = azurerm_resource_group.main.name
 
@@ -28,12 +28,9 @@ module "key_vault" {
     },
   ]
 
-  secrets = [
-    {
-      name  = "secure-message"
-      value = "Hello, world!"
-    }
-  ]
+  secrets = {
+    "message" = "Hello, world!"
+  }
 }
 ```
 
@@ -48,7 +45,7 @@ module "key_vault" {
 | `enabled_for_disk_encryption` | `bool` | Allow Disk Encryption to retrieve secrets from the vault and unwrap keys. Default: `false`. |
 | `enabled_for_template_deployment` | `bool` | Allow Resource Manager to retrieve secrets from the Key Vault. Default: `false`. |
 | `access_policies` | `list` | List of access policies for the Key Vault. |
-| `secrets` | `list` | List of secrets for Key Vault. |
+| `secrets` | `map` | A map of secrets for the Key Vault. |
 | `tags` | `map` | A mapping of tags to assign to the resource. |
 
 The `access_policies` object can have the following keys:
@@ -62,15 +59,3 @@ The `access_policies` object can have the following keys:
 | `key_permissions` | `list` | List of key permissions. The options are: `backup`, `create`, `decrypt`, `delete`, `encrypt`, `get`, `import`, `list`, `purge`, `recover`, `restore`, `sign`, `unwrapkey`, `update`, `verify` and `wrapkey`. |
 | `secret_permissions` | `list` | List of secret permissions. The options are: `backup`, `delete`, `get`, `list`, `purge`, `recover`, `restore` and `set`. |
 | `storage_permissions` | `list` | List of storage permissions. The options are: `backup`, `delete`, `deletesas`, `get`, `getsas`, `list`, `listsas`, `purge`, `recover`, `regeneratekey`, `restore`, `set`, `setsas` and `update`. |
-
-The `secrets` object can have the following keys:
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `name` | `string` | The name of the secret. |
-| `value` | `string` | The value of the secret. |
-
-
-## Limitations
-
-Due to current limitations of the Terraform language, items added or removed from the `access_policies` and `secrets` lists, will also update subsequent items with indexes greater than where the addition or removal was made. 
