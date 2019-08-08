@@ -13,7 +13,7 @@ resource "azurerm_resource_group" "main" {
 module "key_vault" {
   source = "innovationnorway/key-vault/azurerm"
 
-  name = "example-vault"
+  name = "example"
 
   resource_group_name = azurerm_resource_group.main.name
 
@@ -28,12 +28,9 @@ module "key_vault" {
     },
   ]
 
-  secrets = [
-    {
-      name  = "secure-message"
-      value = "Hello, world!"
-    }
-  ]
+  secrets = {
+    "message" = "Hello, world!"
+  }
 }
 ```
 
