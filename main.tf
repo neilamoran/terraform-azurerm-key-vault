@@ -26,20 +26,35 @@ resource "azurerm_key_vault" "main" {
 
   sku_name = var.sku
 
+  dynamic "access_policy" {
+    for_each = local.combined_access_policies
+
+    content {
+      tenant_id = data.azurerm_client_config.main.tenant_id
+      object_id = access_policy.value.object_id
+
+      certificate_permissions = access_policy.value.certificate_permissions
+      key_permissions         = access_policy.value.key_permissions
+      secret_permissions      = access_policy.value.secret_permissions
+      storage_permissions     = access_policy.value.storage_permissions
+    }
+  }
+
+  dynamic "access_policy" {
+    for_each = local.service_principal_object_id != "" ? [local.self_permissions] : []
+
+    content {
+      tenant_id = data.azurerm_client_config.main.tenant_id
+      object_id = access_policy.value.object_id
+
+      certificate_permissions = access_policy.value.certificate_permissions
+      key_permissions         = access_policy.value.key_permissions
+      secret_permissions      = access_policy.value.secret_permissions
+      storage_permissions     = access_policy.value.storage_permissions
+    }
+  }
+
   tags = var.tags
-}
-
-resource "azurerm_key_vault_access_policy" "main" {
-  count        = length(local.combined_access_policies)
-  key_vault_id = azurerm_key_vault.main.id
-
-  tenant_id = data.azurerm_client_config.main.tenant_id
-  object_id = local.combined_access_policies[count.index].object_id
-
-  certificate_permissions = local.combined_access_policies[count.index].certificate_permissions
-  key_permissions         = local.combined_access_policies[count.index].key_permissions
-  secret_permissions      = local.combined_access_policies[count.index].secret_permissions
-  storage_permissions     = local.combined_access_policies[count.index].storage_permissions
 }
 
 resource "azurerm_key_vault_secret" "main" {
@@ -47,16 +62,4 @@ resource "azurerm_key_vault_secret" "main" {
   name         = var.secrets[count.index].name
   value        = var.secrets[count.index].value
   key_vault_id = azurerm_key_vault.main.id
-  depends_on   = [azurerm_key_vault_access_policy.main]
-}
-
-resource "azurerm_key_vault_access_policy" "self" {
-  count        = local.service_principal_object_id != "" ? 1 : 0
-  key_vault_id = azurerm_key_vault.main.id
-
-  tenant_id = data.azurerm_client_config.main.tenant_id
-  object_id = local.service_principal_object_id
-
-  key_permissions    = ["create", "delete", "get"]
-  secret_permissions = ["delete", "get", "set"]
 }

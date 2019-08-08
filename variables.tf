@@ -121,4 +121,11 @@ locals {
   ]
 
   service_principal_object_id = data.azurerm_client_config.main.service_principal_object_id
+
+  self_permissions = {
+    object_id          = local.service_principal_object_id
+    tenant_id          = data.azurerm_client_config.main.tenant_id
+    key_permissions    = ["create", "delete", "get"]
+    secret_permissions = ["delete", "get", "set"]
+  }
 }

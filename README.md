@@ -73,4 +73,4 @@ The `secrets` object can have the following keys:
 
 ## Limitations
 
-Due to current limitations of the Terraform language, items added or removed from the `access_policies` and `secrets` lists, will also update subsequent items with indexes greater than where the addition or removal was made. 
+Due to current limitations of the Terraform language, items added or removed from the `secrets` lists, will also update subsequent items with indexes greater than where the addition or removal was made. 
