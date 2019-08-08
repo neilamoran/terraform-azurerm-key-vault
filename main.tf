@@ -58,8 +58,8 @@ resource "azurerm_key_vault" "main" {
 }
 
 resource "azurerm_key_vault_secret" "main" {
-  count        = length(var.secrets)
-  name         = var.secrets[count.index].name
-  value        = var.secrets[count.index].value
+  for_each     = { for s in var.secrets : s.name => s.value }
+  name         = each.key
+  value        = each.value
   key_vault_id = azurerm_key_vault.main.id
 }

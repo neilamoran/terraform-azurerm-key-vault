@@ -69,8 +69,3 @@ The `secrets` object can have the following keys:
 | --- | --- | --- |
 | `name` | `string` | The name of the secret. |
 | `value` | `string` | The value of the secret. |
-
-
-## Limitations
-
-Due to current limitations of the Terraform language, items added or removed from the `secrets` lists, will also update subsequent items with indexes greater than where the addition or removal was made. 
