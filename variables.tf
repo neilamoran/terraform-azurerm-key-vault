@@ -39,12 +39,9 @@ variable "access_policies" {
 }
 
 variable "secrets" {
-  type = list(object({
-    name  = string
-    value = string
-  }))
-  description = "List of secrets for the Key Vault."
-  default     = []
+  type        = map(string)
+  description = "A map of secrets for the Key Vault."
+  default     = {}
 }
 
 variable "tags" {
