@@ -124,7 +124,7 @@ locals {
     tenant_id               = data.azurerm_client_config.main.tenant_id
     key_permissions         = ["create", "delete", "get"]
     secret_permissions      = ["delete", "get", "set"]
-    certificate_permissions = ["create", "get", "list"]
-    storage_permissions     = ["get", "list", "set"]
+    certificate_permissions = ["create", "delete", "get", "list"]
+    storage_permissions     = ["get", "delete", "list", "set"]
   }
 }
